@@ -1,0 +1,168 @@
+digraph EvolutionaryCloneTree {
+splines=true;
+sep="+25,25";
+overlap=scalexy;
+nodesep=0.6;
+	subgraph T {
+		N[label=<<B>Normal</B>>,color=black]
+		0[label=<<B>clone</B><SUB>0</SUB>>,color=red]
+		1[label=<<B>clone</B><SUB>1</SUB>>,color=blue]
+	{rank = same; 1}
+	}
+	N -> 0 [label="(44350474,54467610) tdup in P-chr4
+(133317771,134325146) tdup in M-chr2
+(132831429,144003689) del in M-chr1
+(30921243,31943528) del in P-chr20
+(7511413,8499222) tdup in M-chr11
+(205321382,208655366) tdup in P-chr1
+(160147806,161147029) tdup in M-chr4
+(171682034,172687188) tdup in M-chr5
+(69853418,72867049) del in M-chr4
+(11685747,14943348) del in P-chr10
+(57296274,58288754) tdup in P-chr20
+(85803543,86815569) tdup in M-chr8
+(118876996,122512757) tdup in P-chr1
+(28158924,29146401) del in M-chr3
+(59677470,60673813) del in M-chr10
+(58897495,59903901) tdup in M-chr8
+(122104186,244208373) dup of M-chr2 arm
+(117105847,120173144) tdup in M-chr12
+(45692005,50924978) tdup in P-chr22
+(91909064,92890853) tdup in P-chr6
+(133031991,143664405) tdup in M-chr1
+(28964950,32469770) del in M-chr10
+(0,53674770) dup of M-chr14 arm
+(82717170,83694492) tdup in P-chr13
+(135273550,138495086) tdup in P-chr6
+(90960630,181921260) dup of M-chr5 arm
+(42530857,43512258) del in P-chr8
+(87660033,175320067) dup of P-chr6 arm
+(76117068,77111169) del in P-chr7
+(179008327,180007846) tdup in M-chr3
+(32590126,33592051) tdup in P-chr18
+(51742671,63032917) del in P-chr15
+(104418713,126006121) tdup in M-chr8
+(58073939,116147878) del of P-chr13 arm
+(35070138,43865393) tdup in P-chr17
+(124572823,125577104) del in M-chr4
+(115549926,119086877) tdup in M-chr4
+(144062230,145053680) tdup in P-chr3
+(125121079,128343043) tdup in M-chr1
+(144423318,166706416) tdup in M-chr3
+(0,95836138) dup of M-chr4 arm
+(35644308,39069433) del in M-chr12
+(53491693,54491154) tdup in P-chr3
+(58543275,75245248) del in M-chr16
+(20465409,23604646) del in P-chr7
+(14303875,22936147) tdup in P-chr16
+(37932283,40588731) tdup in M-chr1
+(0,66137873) dup of P-chr10 arm
+(71991280,88662314) del in M-chr8
+(90126275,91124141) tdup in P-chr10
+(143754638,287509276) dup of M-chr4 arm
+(28081363,52113576) del in M-chr16
+(201314370,204103396) tdup in M-chr3
+(76144833,82598703) tdup in M-chr10
+(64315019,65310617) tdup in M-chr11
+(97179204,98183147) tdup in P-chr4
+(39530490,42687159) tdup in M-chr18
+(139222205,140220656) tdup in M-chr4
+(156020494,157024395) tdup in P-chr4
+(48751040,49749991) del in M-chr12
+(14897517,17187962) del in M-chr16
+(24064947,48129895) dup of P-chr21 arm
+(104527831,105513892) tdup in M-chr3
+(51241081,55000713) tdup in M-chr3
+(26937217,27926367) tdup in M-chr22
+(98666313,108621252) del in P-chr10
+(104036452,107828937) tdup in M-chr8
+(18144968,20975344) tdup in P-chr18
+(340423898,353944927) tdup in M-chr2
+(73707201,74710880) tdup in M-chr8
+(34839084,38913950) del in P-chr8
+(68495758,136991516) dup of M-chr11 arm
+(117961261,118959047) tdup in M-chr1
+(79160128,80159577) tdup in P-chr12
+(90386688,93452266) tdup in M-chr13", fontsize=5, fixedsize=true]
+	0 -> 1 [label="(14921993,22755558) tdup in M-chr7
+(175698420,178533481) tdup in P-chr4
+(117325196,118321019) tdup in P-chr9
+(121027753,122018440) tdup in M-chr9
+(39829946,50924105) del in M-chr22
+(44365958,53835505) tdup in P-chr7
+(106505852,107490223) tdup in P-chr2
+(117563892,120629183) tdup in M-chr1
+(55220283,56208996) tdup in P-chr13
+(99066083,101763490) tdup in M-chr7
+(38422276,39422740) tdup in P-chr5
+(10358340,32887620) tdup in P-chr22
+(0,53674770) dup of P-chr14 arm
+(244102051,246801954) tdup in P-chr6
+(235217154,238542581) tdup in M-chr4
+(68902629,87763983) tdup in M-chr13
+(0,136441260) dup of M-chr5 arm
+(70983640,74378901) del in P-chr16
+(215940724,219295570) tdup in P-chr2
+(91224473,94696552) tdup in M-chr6
+(156709319,159315300) tdup in P-chr1
+(0,123770686) dup of P-chr2 arm
+(91258980,92264111) tdup in P-chr12
+(85740421,86739555) tdup in P-chr3
+(38843225,39865591) tdup in M-chr12
+(129414810,258829621) del of P-chr1 arm
+M-chr13 loss
+(44065077,47068535) tdup in P-chr6
+(31497760,62995520) dup of P-chr20 arm
+(0,23663876) dup of M-chr16 arm
+(0,102744016) dup of M-chr11 arm
+(15948995,19051390) tdup in P-chr4
+(21520037,22516528) tdup in P-chr15
+(0,64707000) dup of P-chr1 arm
+(202911855,203908001) tdup in M-chr2
+(23263024,24257691) tdup in M-chr2
+(158859435,159852551) del in M-chr14
+(0,71105215) del of P-chr9 arm
+(161961518,162988742) del in M-chr1
+(22284095,24786839) del in P-chr12
+(46547146,49867042) del in P-chr4
+(156386842,157391343) tdup in P-chr10
+(8788133,20176054) tdup in M-chr3
+(34524033,53041728) tdup in M-chr19
+(42870603,43859825) tdup in M-chr19
+(133129546,134118599) tdup in M-chr2
+(87587032,88590839) del in M-chr11
+(43879808,44881546) tdup in M-chr9
+(18304196,25618682) tdup in P-chr22
+(96104532,104636531) tdup in M-chr5
+(0,102950638) dup of P-chr4 arm
+(253570175,254562579) tdup in P-chr6
+(104876683,105875149) tdup in P-chr4
+(118523122,130869712) tdup in M-chr11
+(109684961,110692517) tdup in M-chr3
+(146477020,147478766) tdup in M-chr5
+(26033562,27020430) tdup in M-chr3
+(83751166,84755657) tdup in P-chr22
+(37065087,38060747) tdup in M-chr18
+(25819404,26798357) tdup in P-chr4
+(115613033,116615887) tdup in P-chr7
+(199048428,201448860) del in M-chr2
+(88887014,98195352) tdup in M-chr10
+(77132399,80203630) tdup in M-chr1
+(0,209429760) dup of M-chr5 arm
+(203444499,204443657) tdup in P-chr4
+(92307970,95506764) tdup in P-chr6
+(20719679,21705312) tdup in M-chr17
+(71991504,79486926) del in P-chr8
+(158333075,161966609) tdup in M-chr2
+(78222773,91205978) tdup in P-chr15
+(0,51265696) dup of M-chr15 arm
+(400171501,403509508) tdup in M-chr5
+(197708961,201085229) tdup in M-chr4
+(56104594,58759183) tdup in M-chr16
+(129223631,130225640) tdup in M-chr5
+(18246934,29892631) tdup in M-chr4
+(105700018,116657395) tdup in M-chr15
+(35552215,71104431) dup of P-chr9 arm
+(185656186,371312373) dup of P-chr2 arm", fontsize=5, fixedsize=true]
+}
+
