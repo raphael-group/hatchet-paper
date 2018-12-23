@@ -1,6 +1,6 @@
 # HATCHet paper
 
-This repository contains the simulated data, the results of all the methods considered in the comparison, and the results of HATCHet on the published whole-genome multi-sample tumor sequencing datasets, all these are described in the HATCHet paper at:
+This repository contains the simulated data, the results of all the methods considered in the comparison, and the results of HATCHet ([HATCHet repository](https://github.com/raphael-group/hatchet)) on the published whole-genome multi-sample tumor sequencing datasets, all these are described in the HATCHet paper at:
 
 [Simone Zaccaria and Ben Raphael, 2018](https://www.biorxiv.org/content/early/2018/12/17/496174)
 
