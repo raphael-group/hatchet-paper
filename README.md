@@ -38,6 +38,7 @@ All these data are reported in the folder `data`. The patients are divided betwe
 Each dataset includes two patients and for each patient a BB file describes the RDR and BAF of every genomic bin in all samples of the corresponding patient. The name of each BB file specifies the number of samples for the related patient, the number of clones, and the corresponding clone proportions. More specifically, the BB filename is given by a `_`-separated list where the first element preceeded by the letter `k` specifies the number of corresponding samples and each other element specifies the clone proportions of a sample, listed such that the first is the proportion of normal diploid clone and the clone proportion of any other tumor clone is given in corresponding order. The name of a sample is a `_`-separated list which starts with the noun `bulk` and each element specifies the clone proportion (without the dot) of every clone.
 
 For example, `k4_01090_02008_00506035_00504055.bb.gz` is a BB file for a patient with 4 samples which incude 2 tumor clones (`clone0` and `clone1`) and a normal diploid clone `normal`. In particular, the samples have the following clonal compositions
+
 | Name of sample | `normal` proportion | `clone0` proportion | `clone1` proportion |
 |----------------|---------------------|---------------------|---------------------|
 | `bulk_01normal_09clone0_Noneclone1` | `0.1` | `0.9` | Not present |
@@ -46,6 +47,7 @@ For example, `k4_01090_02008_00506035_00504055.bb.gz` is a BB file for a patient
 | `bulk_005normal_04clone0_055clone1` | `0.05` | `0.4` | `0.45` |
 
 Another example, `k7_040600_010090_020008_0103060_0205003_0100504_01030303.bb.gz` is a BB file for a patient with 7 samples which incude 3 tumor clones (`clone0`, `clone1`, and `clone2`) and a normal diploid clone `normal`. In particular, the samples have the following clonal compositions
+
 | Name of sample | `normal` proportion | `clone0` proportion | `clone1` proportion | `clone2` proportion |
 |----------------|---------------------|---------------------|---------------------|---------------------|
 | `bulk_04normal_06clone0_Noneclone1_Noneclone2` | `0.4` | `0.6` | Not present | Not present |
