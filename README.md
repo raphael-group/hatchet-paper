@@ -10,6 +10,8 @@ This repository contains the simulated data, the results of all the methods cons
     - [Tumors](#tumors)
     - [Patients and samples](#patientsandsamples)
     - [Results](#results)
+      - [Fixed](#fixed)
+      - [Free](#free)
 2. [Cancer data](#cancerdata)
     - [Prostate cancer](#prostatecancer)
     - [Pancreas cancer](#pancreascancer)
@@ -89,7 +91,13 @@ HATCHet has been compared with 4 current state-of-the-art methods for CNA infere
 
 Each of these methods and HATCHet has been applied on the simulated samples. More specifically, Battenberg, TITAN, and THetA have been applied on each sample individually, cloneHD has been applied jointly on all samples from the same patient, and HATCHet has been applied both on each sample individually (single-sample HATCHet) and jointly on all samples from the same patient. We consider two different settings when executing the methods on simulated data.
 
+#### Fixed
+<a name="fixed"></a>
+
 First, every method has been applied on all 128 samples of the 32 patients without a WGD by providing the true value of the main parameters, including tumor ploidy, number of clones, and maximum copy number. In this case, the results obtained by every method are reported in the folder `fixed` and in the subfolder of the corresponding dataset. The results of Battenberg, TITAN, and THetA are specifically reported for every sample, the results of cloneHD are reported for every patient, and the results of HATCHet are specifically reported for every sample (when obtained by executing HATCHet on each sample inidividually) and specifically for every patient (when obtained by executing HATCHet jointly on all samples from the same patient).
+
+#### Free
+<a name="free"></a>
 
 Second, every method has been applied on all 256 samples of the 64 patients with and without a WGD, requiring that each method infers all the relevant parameters, including tumor ploidy and number of clones, and setting the maximum copy number to 8. THetA has been excluded from this analysis as it does not automatically infer the presence/absence of a WGD. In this case, the results obtained by every method are reported in the folder `free` and in the subfolder of the corresponding dataset, which are divided according to either the presence or absence of a WGD. The results of Battenberg and TITAN are specifically reported for every sample, the results of cloneHD are reported for every patient, and the results of HATCHet are specifically reported for every sample (when obtained by executing HATCHet on each sample inidividually) and specifically for every patient (when obtained by executing HATCHet jointly on all samples from the same patient).
 
