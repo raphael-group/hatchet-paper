@@ -74,6 +74,26 @@ Each BB file corresponds to a patint and is a tab-separated file describing the 
 
 Due to space limitations, each BB file has been compressed using `gzip` with level of compression 9. The file can be easily decompressed with the command `gzip -d BBFILE`.
 
+### Results
+<a name="results"></a>
+
+HATCHet has been compared with 4 current state-of-the-art methods for CNA inference:
+
+| Method | Reference | Repository |
+|--------|-----------|------------|
+| Battenberg | [(Nik-Zainal et al., *Cell*, 2012)](https://www.cell.com/abstract/S0092-8674%2812%2900527-2) | [cgpBattenberg](https://github.com/cancerit/cgpBattenberg) and [Wedge-Oxford Battenberg](https://github.com/Wedge-Oxford/battenberg) |
+| TITAN | [(Ha et al., *Genome Research*, 2014)](https://genome.cshlp.org/content/early/2014/07/24/gr.180281.114.abstract) | [TitanCNA](https://github.com/gavinha/TitanCNA) |
+| THetA | [(Oesper et al., *Genome Biology*, 2013)](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-7-r80) | [THetA/THetA2](https://github.com/raphael-group/THetA) |
+| cloneHD | [(Fischer et al., *Cell Reports*, 2014)](https://www.cell.com/cell-reports/fulltext/S2211-1247(14)00373-8) | [cloneHD](https://github.com/andrej-fischer/cloneHD) |
+
+Each of these methods and HATCHet has been applied on the simulated samples. More specifically, Battenberg, TITAN, and THetA have been applied on each sample individually, cloneHD has been applied jointly on all samples from the same patient, and HATCHet has been applied both on each sample individually (single-sample HATCHet) and jointly on all samples from the same patient. We consider two different settings when executing the methods on simulated data.
+
+First, every method has been applied on all 128 samples of the 32 patients without a WGD by providing the true value of the main parameters, including tumor ploidy, number of clones, and maximum copy number. In this case, the results obtained by every method are reported in the folder `fixed` and in the subfolder of the corresponding dataset. The results of Battenberg, TITAN, and THetA are specifically reported for every sample, the results of cloneHD are reported for every patient, and the results of HATCHet are specifically reported for every sample (when obtained by executing HATCHet on each sample inidividually) and specifically for every patient (when obtained by executing HATCHet jointly on all samples from the same patient).
+
+Second, every method has been applied on all 256 samples of the 64 patients with and without a WGD, requiring that each method infers all the relevant parameters, including tumor ploidy and number of clones, and setting the maximum copy number to 8. THetA has been excluded from this analysis as it does not automatically infer the presence/absence of a WGD. In this case, the results obtained by every method are reported in the folder `free` and in the subfolder of the corresponding dataset, which are divided according to either the presence or absence of a WGD. The results of Battenberg and TITAN are specifically reported for every sample, the results of cloneHD are reported for every patient, and the results of HATCHet are specifically reported for every sample (when obtained by executing HATCHet on each sample inidividually) and specifically for every patient (when obtained by executing HATCHet jointly on all samples from the same patient).
+
+For every method, all the most important and relevant output files are reported. The largest of these files have been compressed due to space limitations using the command `gzip -9` and they can be easily decompressed by using the corresponding command `gzip -d`.
+
 ## Cancer data
 <a name="cancerdata"></a>
 
