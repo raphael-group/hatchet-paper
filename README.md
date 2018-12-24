@@ -9,6 +9,7 @@ This repository contains the simulated data, the results of all the methods cons
 1. [Simulated data](#simulateddata)
     - [Tumors](#tumors)
     - [Patients and samples](#patientsandsamples)
+    - [Results](#results)
 2. [Cancer data](#cancerdata)
     - [Prostate cancer](#prostatecancer)
     - [Pancreas cancer](#pancreascancer)
