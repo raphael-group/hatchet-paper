@@ -15,6 +15,8 @@ This repository contains the simulated data, the results of all the methods cons
 2. [Cancer data](#cancerdata)
     - [Prostate cancer](#prostatecancer)
     - [Pancreas cancer](#pancreascancer)
+3. [Analysis](#analysis)
+    - [Mutated copies, predicted VAF, CCF, and explaining of mutations](#mutations)
 
 ## Simulated data
 <a name="simulateddata"></a>
@@ -175,3 +177,14 @@ The mutations inferred from all samples of every pancreas cancer patient are rep
 | `somatic_status` | Status of the variant (Germline, Somatic, or LOH). Here, all the mutations are Somatic |
 | `variant_p_value` | Significance of variant read count compared to baseline error rate |
 | `somatic_p_value` | Significance of tumor read count compared to normal read count |
+
+
+## Analysis
+<a name="analysis"></a>
+
+The section contains tools which have been applied for obtaining the analysis presented in the HATCHet's paper.
+
+| Analysis | Tool | Requirement |
+|----------|------|-------------|
+| Compute mutated copies, predicted VAF, CCF, and explaining of mutations<a name="mutations"></a> | [explainMutationsCCF.py](analysis/explainMutationsCCF.py) | The toold requires in input a SEG file with allele and clone-specific copy-number states and proportions, and a CSV file with the following fields (whose names must be specified in the first-row header): <ul><li>`chrom`: name of a chromosome</li><li>`position`: genomic position of the mutation</li><li>`Patient`: name of the patient</li><li>`Sample`: name of the sample</li><li>`somatic_status`: `Somatic` or `Germline`, only somatic mutations are considered</li><li>`tumor_var_freq`: observed VAF in either percentage forma, e.g. `10.789%`, or floating format, e.g. `0.10789`</li><li>`tumor_reads1`: `REF` count for the mutation</li><li>`tumor_reads2`: `ALT` count for the mutation</li></ul>
+
