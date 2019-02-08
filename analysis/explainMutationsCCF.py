@@ -42,12 +42,12 @@ def main():
 
     log('Formatting and writing')
     if not args['explain']:
-        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'Error', 'MutatedCopies', 'CCF'])
-        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['Err'], s['mutated_copies'], s['CCF']])))
+        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'predicted_VAF', 'Error', 'MutatedCopies', 'CCF'])
+        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['predicted_VAF'], s['Err'], s['mutated_copies'], s['CCF']])))
         print '\n'.join([rec(s) for s in snv])
     else:
-        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'Error', 'MutatedCopies', 'CCF', 'Explained'])
-        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['Err'], s['mutated_copies'], s['CCF'], s['Explained']])))
+        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'predicted_VAF', 'Error', 'MutatedCopies', 'CCF', 'Explained'])
+        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['predicted_VAF'], s['Err'], s['mutated_copies'], s['CCF'], s['Explained']])))
         print '\n'.join([rec(s) for s in snv])
 
 
