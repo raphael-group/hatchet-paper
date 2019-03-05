@@ -36,7 +36,7 @@ def main():
     cns = read_cns(args['cns'])
 
     log('Reading somatic mutations and inferring mutated copies')
-    snv = read_snv(args['snv'], cns, args['tool'], args['explain'])
+    snv = read_snv(args['snv'], cns, args['tool'])
 
     log('Computing SNV state clusters and SPRUCE clusters')
     clustering(snv)
@@ -72,7 +72,7 @@ def read_cns(path):
     return cns
 
 
-def read_snv(path, cns, tool, explain):
+def read_snv(path, cns, tool):
     snv = []
     with open(path, 'r') as i:
         header = [t for t in i.readline().strip().split(',')]
@@ -98,10 +98,10 @@ def read_snv(path, cns, tool, explain):
 
                 if len(find) == 1:
                     find = find[0][-1]
-                    snv.append(record(find, tool, row, sample, explain))
+                    snv.append(record(find, tool, row, sample))
                 elif len(find) == 2:
-                    record1 = record(find[0][-1], tool, row, sample, explain)
-                    record2 = record(find[1][-1], tool, row, sample, explain)
+                    record1 = record(find[0][-1], tool, row, sample)
+                    record2 = record(find[1][-1], tool, row, sample)
                     if record1['Err'] <= record2['Err']:
                         snv.append(record1)
                     else:
@@ -109,7 +109,7 @@ def read_snv(path, cns, tool, explain):
     return snv
 
 
-def record(f, tool, row, sample, explain):
+def record(f, tool, row, sample):
     best, est, ccf = estimate(f, row)
     record = {}
     record['chr'] = row['chrom']
@@ -124,8 +124,7 @@ def record(f, tool, row, sample, explain):
     record['counts'] = '{},{}'.format(int(row['tumor_reads1']), int(row['tumor_reads2']))
     record['CNStates'] = ','.join(['{}|{}:{}'.format(i[0][0], i[0][1], i[1]) for i in f])
     record['mutated_copies'] = ','.join(map(str, tuple(best)))
-    if explain:
-        record['Explained'] = isconf((int(row['tumor_reads1']), int(row['tumor_reads2'])), est, 0.05)
+    record['Explained'] = isconf((int(row['tumor_reads1']), int(row['tumor_reads2'])), est, 0.05)
     return record
 
 
@@ -215,7 +214,7 @@ def clustering(snv):
 
     log('## Number of SNVstates clusters: {}'.format(len(snvstates)))
     log('## Number of SPRUCE clusters: {}'.format(len(allspruce)))
-    
+
 
 def isconf((countA, countB), est, gamma):
     p_lower = gamma / 2.0
