@@ -199,6 +199,7 @@ def clustering(snv):
     combo = (lambda S, M : red([((v[0][0], v[0][1], M[i]), v[1]) for i, v in enumerate(S)]))
     form = (lambda D : ','.join(['{}|{}|{}:{}'.format(k[0], k[1], k[2], D[k]) for k in sorted(D.keys(), key=(lambda x : (x[0], x[1], x[2])))]))
     getspruce = (lambda s : form(combo(getstates(s), map(int, s['mutated_copies'].split(',')))))
+    check = (lambda L : 0.98 <= sum(float(i.split(':')[1]) for i in L.split(',')) <= 1.02)
     allspruce = {}
     for s in snv:
         if s['Explained']:
@@ -207,6 +208,7 @@ def clustering(snv):
             if s['SPRUCEState'] not in allspruce:
                 allspruce[s['SPRUCEState']] = len(allspruce.keys())
             s['SPRUCECluster'] = allspruce[s['SPRUCEState']]
+            assert check(s['CNStates']) and check(s['SPRUCEState'])
         else:
             s['SNVState'] = 'None'
             s['SPRUCEState'] = 'None'
