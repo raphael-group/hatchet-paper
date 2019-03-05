@@ -16,7 +16,6 @@ def parse_args():
     parser.add_argument("INPUT", type=str, help="CSV file of somatic mutations.")
     parser.add_argument("-s", "--seg", required=True, type=str, help="SEG.UCN file with inferred allele and clone-specific copy-number states and proportions.")
     parser.add_argument("-t", "--tool", required=False, default='HATCHet', type=str, help="Name of the method which inferred the copy-number states and proportions.")
-    parser.add_argument("-e", "--explain", action='store_true', default=False, required=False, help="Compute whether mutations are explained by the copy numbers and proportions.")
     args = parser.parse_args()
 
     if not os.path.isfile(args.INPUT):
@@ -26,8 +25,7 @@ def parse_args():
 
     return { "snv" : args.INPUT,
              "cns" : args.seg,
-             "tool" : args.tool,
-             "explain" : args.explain }
+             "tool" : args.tool,}
 
 
 def main():
@@ -40,17 +38,16 @@ def main():
     log('Reading somatic mutations and inferring mutated copies')
     snv = read_snv(args['snv'], cns, args['tool'], args['explain'])
 
+    log('Computing SNV state clusters and SPRUCE clusters')
+    clustering(snv)
+
     log('Formatting and writing')
-    if not args['explain']:
-        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'predicted_VAF', 'Error', 'MutatedCopies', 'CCF'])
-        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['predicted_VAF'], s['Err'], s['mutated_copies'], s['CCF']])))
-        print '\n'.join([rec(s) for s in snv])
-    else:
-        print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'predicted_VAF', 'Error', 'MutatedCopies', 'CCF', 'Explained'])
-        rec = (lambda s : '\t'.join(map(str, [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['predicted_VAF'], s['Err'], s['mutated_copies'], s['CCF'], s['Explained']])))
-        print '\n'.join([rec(s) for s in snv])
-
-
+    base = (lambda s : [s['chr'], s['pos'], s['Sample'], s['tool'], s['cov'], s['counts'], s['observed_VAF'], s['predicted_VAF'], s['Err'], s['CNStates'], s['mutated_copies'], s['CCF']])
+    print '\t'.join(['#CHR', 'POS', 'PATIENT-SAMPLE', 'TOOL', 'COV', 'COUNTS', 'ObservedVAF', 'predicted_VAF', 'Error', 'CNStates', 'MutatedCopies', 'CCF', 'Explained', 'SNVState', 'SPRUCEState', 'SPRUCECluster'])
+    form = (lambda s : base(s) + [s['Explained'], s['SNVState'], s['SPRUCEState'], s['SPRUCECluster']])
+    rec = (lambda s : '\t'.join(map(str, form(s))))
+    for s in snv:
+        print rec(s)
 
 
 def read_cns(path):
@@ -125,6 +122,7 @@ def record(f, tool, row, sample, explain):
     record['Err'] = abs(record['observed_VAF'] - est)
     record['cov'] = int(row['tumor_reads1']) + int(row['tumor_reads2'])
     record['counts'] = '{},{}'.format(int(row['tumor_reads1']), int(row['tumor_reads2']))
+    record['CNStates'] = ','.join(['{}|{}:{}'.format(i[0][0], i[0][1], i[1]) for i in f])
     record['mutated_copies'] = ','.join(map(str, tuple(best)))
     if explain:
         record['Explained'] = isconf((int(row['tumor_reads1']), int(row['tumor_reads2'])), est, 0.05)
@@ -193,6 +191,31 @@ def estimate(inf, row):
     ccf = float(mut) / float(purity)
     return best, ests[best], ccf
 
+
+def clustering(snv):
+    snvstates = {i : x for x, i in enumerate(set((s['CNStates'], s['mutated_copies']) for s in snv if s['Explained']))}
+    swap = (lambda p : (p[0], p[1]) if p[0] >= p[1] else (p[1], p[0]))
+    getstates = (lambda s : [(tuple(map(int, i.split(':')[0].split('|'))), float(i.split(':')[1])) for i in s['CNStates'].split(',')])
+    red = (lambda L : {k : sum(l[1] for l in L if l[0] == k) for k in set(l[0] for l in L)})
+    combo = (lambda S, M : red([((v[0][0], v[0][1], M[i]), v[1]) for i, v in enumerate(S)]))
+    form = (lambda D : ','.join(['{}|{}|{}:{}'.format(k[0], k[1], k[2], D[k]) for k in sorted(D.keys(), key=(lambda x : (x[0], x[1], x[2])))]))
+    getspruce = (lambda s : form(combo(getstates(s), map(int, s['mutated_copies'].split(',')))))
+    allspruce = {}
+    for s in snv:
+        if s['Explained']:
+            s['SNVState'] = snvstates[(s['CNStates'], s['mutated_copies'])]
+            s['SPRUCEState'] = getspruce(s)
+            if s['SPRUCEState'] not in allspruce:
+                allspruce[s['SPRUCEState']] = len(allspruce.keys())
+            s['SPRUCECluster'] = allspruce[s['SPRUCEState']]
+        else:
+            s['SNVState'] = 'None'
+            s['SPRUCEState'] = 'None'
+            s['SPRUCECluster'] = 'None'
+
+    log('## Number of SNVstates clusters: {}'.format(len(snvstates)))
+    log('## Number of SPRUCE clusters: {}'.format(len(allspruce)))
+    
 
 def isconf((countA, countB), est, gamma):
     p_lower = gamma / 2.0
