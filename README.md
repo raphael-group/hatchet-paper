@@ -188,3 +188,22 @@ The section contains tools which have been applied for obtaining the analysis pr
 |----------|------|-------------|
 | Compute mutated copies, predicted VAF, CCF, and explaining of mutations<a name="mutations"></a> | [explainMutationsCCF.py](analysis/explainMutationsCCF.py) | The toold requires in input a SEG file with allele and clone-specific copy-number states and proportions, and a CSV file with the following fields (whose names must be specified in the first-row header): <ul><li>`chrom`: name of a chromosome</li><li>`position`: genomic position of the mutation</li><li>`Patient`: name of the patient</li><li>`Sample`: name of the sample</li><li>`somatic_status`: `Somatic` or `Germline`, only somatic mutations are considered</li><li>`tumor_var_freq`: observed VAF in either percentage forma, e.g. `10.789%`, or floating format, e.g. `0.10789`</li><li>`tumor_reads1`: `REF` count for the mutation</li><li>`tumor_reads2`: `ALT` count for the mutation</li></ul>
 
+The tool for the analysis and clustering of SNVs computes and otuputs the following fields (specified in the header which starts with the symbol `#`):
+| Field | Description |
+|-------|-------------|
+| `CHR` | The name of a chromosome |
+| `POS` | The genomic position of the mutation in `CHR` |
+| `PATIENT-SAMPLE` | Patient-sample name in the format `P-S` where `P` is the name of the patient and `S` is the name of the sample |
+| `TOOL` | The name of the methods which inferred the copy numbers |
+| `COV` | Total number of reads covering the mutation |
+| `COUNTS` | Comma-sperated numbers of reads without and with the mutation |
+| `ObservedVAF` | Observed variant-allele frequency of the mutation | 
+| `predicted_VAF` | Predicted VAF when considering the given copy-number states and clone proportions |
+| `Error` | Error in the prediction of VAF |
+| `CNStates` | Given copy-number states and clone proportion for the mutation in `POS`. The state and proportion of the mutation in every clone i are reported in a comma separated list (where clones are sorted according to the input) and the entry for clone i is in the format `A_i|B_i:U_i` where `(A_i, B_i)` is the copy-number state of the mutation in clone i and `U_i` is the corresponding clone proportio of i |
+| `MutatedCopies` | Inferred number of mutated copies for every clone, these are reported in a comma-separated list such that, also in this field, the clones are sorted according to the same order in the input |
+| `CCF` | Computed cancer-cell fraction for the mutation |
+| `Explained` | True or False to indicate whether the mutation is explained |
+| `SNVState` | Name of the cluster of the mutation based on its SNVState which is defined by the unique combination of its `CNStates` and `MutatedCopies` |
+| `SPRUCEState` | This is the state of the mutation as defined in the [SPRUCE model](https://www.cell.com/fulltext/S2405-4712(16)30221-6). More specifically, this corresponds to a comma-separated list with an element for every clone i equal to `MAJ_i|MIN_i|MUT_i:V_i` where `MAJ_i` and `MIN_i` are the major and minor copy numbers in the copy number state, respectively, `MUT_i` is the corresponding number of mutated copies, and `V_i` is the corresponding proportion of this combination of values | 
+| `SPRUCECluster` | Name of the cluster of the mutation based on the unique values of  `SPRUCEState` |
